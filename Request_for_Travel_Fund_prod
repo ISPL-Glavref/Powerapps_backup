@@ -1,0 +1,884 @@
+<style>
+  /* CSS to ensure proper formatting */
+
+  /* Remove bold from labels */
+  label {
+    font-weight: normal;
+    display: inline-block;
+    /* margin-left: -6px; */
+    vertical-align: top;
+  }
+
+  /* Add spacing between radio buttons and labels */
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+
+  /* Ensure long label text is formatted neatly */
+  label[for="VAemployeeNonOfficialDuty"],
+  label[for="VAemployeeOfficialDuty"] {
+    display: inline-block;
+    max-width: 600px;
+    margin-bottom: 10px;
+  }
+
+  /* Additional general form styling for better alignment */
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    /* Spacing between radio button groups */
+  }
+
+  .radio-group input[type="radio"] {
+    margin-right: 10px;
+    margin-left: 10px;
+    /* Spacing between radio button and label */
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  label.required::after {
+    content: " *";
+    /* Adds the asterisk */
+    color: rgb(204, 99, 99);
+    /* Makes the asterisk red */
+    font-weight: bold;
+    /* Optionally make it bold */
+  }
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+    justify-content: center;
+    /* Center modal content */
+    align-items: center;
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    /* For close button positioning */
+  }
+
+  /* Success Message (inside Modal) */
+  .success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e6f9e8;
+    color: #2c662d;
+    border: 1px solid #9fd6a3;
+    border-radius: 8px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+  }
+
+  /* Success Icon */
+  .success-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #4caf50;
+  }
+
+  /* Success Text */
+  .success-text {
+    font-weight: 600;
+  }
+
+  /* Close Button (X) */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: #aaa;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .close-btn:hover {
+    color: #555;
+  }
+
+  /* Overlay for background */
+  .custom-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  /* Alert box */
+  .custom-alert-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-width: 100%;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Alert message text */
+  .custom-alert-box h2 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .custom-alert-box p {
+    color: #555;
+    margin: 10px 0;
+  }
+
+  .custom-alert-box button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .custom-alert-box button:hover {
+    background-color: #0056b3;
+  }
+
+  label#lebelto {
+    margin-top: -23px;
+}
+
+    #loader {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid #14b7e0;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* CSS for valid website */
+.valid-url {
+  border: 1px solid #949494 !important;
+}
+
+.invalid-url {
+  border: 2px solid #f44336 !important;
+}
+
+.url-validation-message {
+  margin-top: -8px;
+  margin-bottom: 10px;
+  font-size: 0.85em;
+  display: none;
+}
+
+.valid-message {
+  color: #4CAF50;
+}
+
+.invalid-message {
+  color: #f44336;
+}
+
+#url-check-spinner {
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle;
+  border: 3px solid rgba(0,0,0,.1);
+  border-radius: 50%;
+  border-top-color: #007bff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+
+</style>
+<head>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<div id="loader"></div>
+
+<div class="row sectionBlockLayout text-start"
+  style="display: flex; flex-wrap: wrap; margin: 0px; min-height: auto; padding: 8px;">
+  <div class="container"
+    style="padding: 0px; display: flex; flex-wrap: wrap; background-color: #F5F5F5; border-radius: 10px; width: 100%; max-width: 800px; margin: 0 auto;">
+    <div class="col-lg-12 columnBlockLayout"
+      style="word-break: break-word; flex-grow: 1; display: flex; flex-direction: column; min-width: 300px;">
+      <h1 style="font-size: 30px; text-align: center;">Request for Travel Fund</h1>
+      <form novalidate="" class="needs-validation">
+
+
+        <div class="form-group">
+          <label for="travelerName" class="required">Name of Traveler</label>
+          <input type="text" id="NameOfTraveler" name="travelerName" required="" class="form-control">
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="positionTitle" class="required">Position Title</label>
+          <input type="text" id="positionTitle" name="positionTitle" required="" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="required">Email</label>
+          <input type="text" id="email" name="email" required="" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="departureDate" class="required">Departure Date</label>
+          <input type="date" id="departureDate" name="departureDate" required="" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="returnDate" class="required">Return Date</label>
+          <input type="date" id="returnDate" name="returnDate" required="" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label class="required">Purpose of Travel (check one)</label><br>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="purposePresenter" name="purpose"
+              value="Presenter/Guest Speaker at (Event Name)"
+              aria-label="Purpose of Travel: Presenter/Guest Speaker at (Event Name)" required="">
+            <label class="form-check-label" for="purposePresenter">Presenter/Guest Speaker at (Event Name)</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="purposeOther" name="purpose" value="Other"
+              aria-label="Purpose of Travel: Other" required="">
+            <label class="form-check-label" for="purposeOther">Other</label>
+          </div>
+        </div>
+        
+       
+        <div class="form-group">
+          <label for="projectedCost" class="required">Projected Cost</label>
+          <input type="number" id="projectedCost" name="projectedCost" required="" class="form-control">
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="eventLocation" class="required">Event Website</label>
+          <input type="text" id="eventWebsite" name="eventLocation" class="form-control" >
+        </div> -->
+
+        <div class="form-group">
+          <label for="eventWebsite" class="required">Event Website</label>
+            <div style="position: relative;">
+              <input type="text" id="eventWebsite" name="eventWebsite" class="form-control" 
+                    placeholder="https://example.com" 
+                    pattern="https?://.+" 
+                    onblur="validateWebsiteUrl(this.value)">
+              <div id="url-check-spinner"></div>
+            </div>
+          <div id="url-validation-message" class="url-validation-message"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="eventFlyer" class="form-label">Event Flyer</label>
+          <input type="file" id="eventFlyer" class="form-control">
+          <div class="invalid-feedback2"></div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label class="required">Traveler is an employee of (check one):</label><br>
+
+          <div class="form-check">
+            <!-- GLAVREF Option -->
+            <input class="form-check-input" type="radio" id="glavref" name="employeeStatus" value="GLAVREF"
+              onclick="toggleFileUpload('none', '')" required="">
+            <label class="form-check-label" for="glavref">GLAVREF</label>
+          </div>
+
+          <div class="form-check">
+            <!-- VA Employee, Non Official Duty Option -->
+            <input class="form-check-input" type="radio" id="VAemployeeNonOfficialDuty" name="employeeStatus"
+              value="VA Emp NOD" onclick="toggleFileUpload('nonOfficial', 'form SF-71')" required="">
+            <label class="form-check-label" for="VAemployeeNonOfficialDuty">
+              VA Employee, Non Official Duty – Advance review of Authorized Absence (SF-71) has been submitted to VA.
+              Attach a copy of PTO approval.
+            </label>
+          </div>
+
+          <!-- File upload for 2nd radio button -->
+          <div id="nonOfficial-upload-section" style="display: none; margin-top: 10px;">
+            <label id="nonOfficial-file-label" for="nonOfficialFileAttachment" class="required">Upload form
+              SF-71:</label><br>
+            <input type="file" id="nonOfficialFileAttachment" name="nonOfficialFileAttachment" class="form-control">
+          </div>
+
+          <div class="form-check">
+            <!-- VA Employee, Official Duty Option -->
+            <input class="form-check-input" type="radio" id="VAemployee" name="employeeStatus" value="VA Emp OD"
+              onclick="toggleFileUpload('official', 'form 0893')" required="">
+            <label class="form-check-label" for="VAemployee" id="lebelto">
+              VA Employee, Official Duty – VA Approval: Please attach a fully executed “Memorandum for Request of
+              Approved Absence/Travel and Clinical Coverage” and an
+              “Offer to Donate Support for Official Travel” (form 0893). Incomplete documents will result in disapproval
+              of the request.
+            </label>
+          </div>
+
+          <!-- File upload for 3rd radio button -->
+          <div id="official-upload-section" style="display: none; margin-top: 10px;">
+            <label id="official-file-label" for="officialFileAttachment" class="required">Upload form 0893:</label><br>
+            <input type="file" id="officialFileAttachment" name="officialFileAttachment" class="form-control">
+          </div>
+        </div>
+
+        <!-- Radio Button Options 2 -->
+        <div class="form-group">
+          <label class="required">Special Note for Federal Grants:</label>
+          <label style="margin-left: 25px;">This travel included in your federal budget? If there is not a line in your
+            federal budget, please
+            check first with GLAVREF Research and Education Officer.</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="optionYes" name="options1" value="Yes" required="">
+            <label class="form-check-label" for="optionYes">Yes</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="optionNo" name="options1" value="No" required="">
+            <label class="form-check-label" for="optionNo">No</label>
+          </div>
+
+        </div>
+        <!-- added  Glavref Fund# -->
+        <div class="form-group">
+          <label for="Fundnumber" class="required">GLAVREF Fund#</label>
+          <input type="text" id="Fundnumber" name="Fundnumber" required="" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="approvingOfficial" class="required">Name of Principal Investigator</label>
+          <input type="text" id="NameOfPrincipalInvestigator" name="approvingOfficial" class="form-control" required="">
+        </div>
+
+        <div class="form-group">
+          <label for="fileUpload" class="required" >Upload PI Approval Documentation:</label>
+          <input type="file" id="Pi_Documentation" required="" class="form-control">
+          <div class="invalid-feedback"></div>
+        </div>
+        
+        <!-- added class as required -->
+        <div class="form-group">
+          <label for="fileUpload" >Upload Support Docs</label>
+          <input type="file" id="fileUpload" class="form-control">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="g-recaptcha" data-sitekey="6LdIsG8qAAAAAI8gWJCorj82_K25cI2_CbX2RWHF"></div>
+        <div class="col-auto"><button type="submit" id="submitdata" class="btn btn-primary">Submit</button></div>
+      </form>
+
+    </div>
+  </div>
+  <div id="success-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="hideModal()">&times;</span>
+      <div class="success-message">
+        <span class="success-icon">&#10004;</span>
+        <span class="success-text">Your submission was successful!</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+
+
+function showLoader() {
+    document.getElementById('loader').style.display = 'block';
+  }
+
+  function hideLoader() {
+    document.getElementById('loader').style.display = 'none';
+  }
+  
+  // Add this to your existing JavaScript
+async function validateWebsiteUrl(url) {
+  const urlInput = document.getElementById('eventWebsite');
+  const validationMessage = document.getElementById('url-validation-message');
+  const spinner = document.getElementById('url-check-spinner');
+  
+  // Reset previous states
+  urlInput.classList.remove('valid-url', 'invalid-url');
+  validationMessage.style.display = 'none';
+  validationMessage.className = 'url-validation-message';
+  
+  // Basic URL format validation
+  if (!url) {
+    return false;
+  }
+  
+  // Check if URL starts with http:// or https://
+  if (!/^https?:\/\//i.test(url)) {
+    urlInput.classList.add('invalid-url');
+    validationMessage.textContent = 'Please enter a valid URL starting with http:// or https://';
+    validationMessage.classList.add('invalid-message');
+    validationMessage.style.display = 'block';
+    return false;
+  }
+  
+  // Show loading spinner
+  spinner.style.display = 'inline-block';
+  
+  try {
+    // Test the URL by making a HEAD request
+    const response = await fetch(url, {
+      method: 'HEAD',
+      mode: 'no-cors', // Allows cross-origin requests (but we can't read response)
+      cache: 'no-store'
+    });
+    
+    // If we get here, the URL is at least reachable
+    urlInput.classList.add('valid-url');
+   // validationMessage.textContent = 'URL is valid and accessible';
+    //validationMessage.classList.add('valid-message');
+    //validationMessage.style.display = 'block';
+    return true;
+  } catch (error) {
+    // Try a GET request if HEAD fails (some servers block HEAD)
+    try {
+      const getResponse = await fetch(url, {
+        method: 'GET',
+        mode: 'no-cors',
+        cache: 'no-store'
+      });
+      
+      urlInput.classList.add('valid-url');
+      validationMessage.textContent = 'URL is valid and accessible';
+      validationMessage.classList.add('valid-message');
+      validationMessage.style.display = 'block';
+      return true;
+    } catch (getError) {
+      // Both HEAD and GET failed
+      urlInput.classList.add('invalid-url');
+      validationMessage.textContent = 'Please enter a valid website URL (e.g., https://example.com)';
+      validationMessage.classList.add('invalid-message');
+      validationMessage.style.display = 'block';
+      return false;
+    }
+  } finally {
+    spinner.style.display = 'none';
+  }
+}
+
+// Update your validateEventWeb function to include URL validation
+function validateEventWeb() {
+  const eventWebsite = document.getElementById('eventWebsite').value.trim();
+  const eventFlyer = document.getElementById('eventFlyer').files.length;
+  
+  // If both are empty
+  if (eventWebsite === "" && eventFlyer === 0) {
+    document.getElementById('eventFlyer').setAttribute('required', '');
+    document.getElementById('eventWebsite').setAttribute('required', '');
+    alert("Please provide either an Event Website or Event Flyer.");
+    return false;
+  }
+  
+  // If website is provided but invalid
+  if (eventWebsite !== "" && document.getElementById('eventWebsite').classList.contains('invalid-url')) {
+    alert("Please provide a valid and accessible website URL.");
+    return false;
+  }
+  
+  // Remove required attributes if one is provided
+  document.getElementById('eventFlyer').removeAttribute('required');
+  document.getElementById('eventWebsite').removeAttribute('required');
+  
+  return true;
+}
+
+  
+// function validateEventWeb() {
+//   const eventWebsite = document.getElementById('eventWebsite').value.trim(); // Event Website value
+//   const eventFlyer = document.getElementById('eventFlyer').files.length; // Check if any files are uploaded
+
+//   // If both are empty, return false and set the flyer field as required
+//   if (eventWebsite === "" && eventFlyer === 0) {
+//     document.getElementById('eventFlyer').setAttribute('required', ''); // Set Event Flyer as required
+//     document.getElementById('eventWebsite').setAttribute('required', ''); // Set Event Website as required
+//     alert("Please provide either an Event Website or Event Flyer."); // Alert to user
+//     return false;
+//   }
+
+//   // If one of them is provided, make sure neither are set to required to allow form submission
+//   document.getElementById('eventFlyer').removeAttribute('required');
+//   document.getElementById('eventWebsite').removeAttribute('required');
+
+//   return true;
+// }
+
+  
+
+  function getDateTimeString() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${year}${month}${day}-${hours}${minutes}${seconds}`;
+  }
+
+  function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  function showModal() {
+    const modal = document.getElementById('success-modal');
+    modal.style.display = 'flex'; // Show modal with flex layout
+  }
+
+  // Hide the modal
+  function hideModal() {
+    const modal = document.getElementById('success-modal');
+    modal.style.display = 'none'; // Hide modal
+  }
+
+  function toggleFileUpload(section, formName) {
+    document.getElementById('nonOfficialFileAttachment').removeAttribute('required');
+    document.getElementById('officialFileAttachment').removeAttribute('required');
+    // Hide all sections first
+    document.getElementById('nonOfficial-upload-section').style.display = 'none';
+    document.getElementById('official-upload-section').style.display = 'none';
+
+    // Show the respective section based on the selected radio button
+    if (section === 'nonOfficial') {
+      document.getElementById('nonOfficial-upload-section').style.display = 'block';
+      document.getElementById('nonOfficialFileAttachment').setAttribute('required', '');
+      document.getElementById('nonOfficial-file-label').textContent = 'Please upload ' + formName;
+    } else if (section === 'official') {
+
+      document.getElementById('official-upload-section').style.display = 'block';
+      document.getElementById('officialFileAttachment').setAttribute('required', '');
+      document.getElementById('official-file-label').textContent = 'Please upload ' + formName;
+    }
+  }
+
+  
+
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]); // Extract Base64 content
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  // Form validation and submission script
+  document.getElementById('submitdata').addEventListener('click', async function (event) {
+    event.preventDefault();
+    let fields = this;
+    let form = event.target.closest('form');
+    let submitButton = document.getElementById('submitdata');
+   
+    // Validate Event Website and Flyer
+  if (!validateEventWeb()) {
+    return; // Stop submission if validation fails
+  }
+
+  // Check if CAPTCHA is filled
+  const captchaResponse = grecaptcha.getResponse();
+  if (!captchaResponse) {
+    alert("Please complete the CAPTCHA before submitting.");
+    return; // Stop submission if CAPTCHA is not completed
+  }
+
+    
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+      form.classList.add('was-validated');
+      
+      return;
+    }
+
+
+    // Show loader and disable submit button
+    showLoader();
+    submitButton.disabled = true;
+
+    
+    const NameOfTraveler = document.getElementById("NameOfTraveler").value;
+    const positionTitle = document.getElementById("positionTitle").value;
+    const departureDate = document.getElementById("departureDate").value;
+    const returnDate = document.getElementById("returnDate").value;
+    const projectedCost = document.getElementById("projectedCost").value;
+    const email = document.getElementById("email").value;
+    const eventWebsite = document.getElementById("eventWebsite").value;
+    const Fundnumber = document.getElementById("Fundnumber").value;
+    const NameOfPrincipalInvestigator = document.getElementById("NameOfPrincipalInvestigator").value;
+
+    const TravelPurpose = document.querySelector('input[name="purpose"]:checked');
+    let purpose = TravelPurpose ? TravelPurpose.value : "No option selected";
+
+    const selectedOption = document.querySelector('input[name="employeeStatus"]:checked');
+    let radioValue = selectedOption ? selectedOption.value : "No option selected";
+
+    const Federal = document.querySelector('input[name="options1"]:checked');
+    let radioValue1 = Federal ? Federal.value : "No option selected";
+
+    let data = {};
+    const fileInput = document.getElementById('fileUpload');
+    const file = fileInput.files[0];
+
+    if (file) {
+      try {
+        const base64File1 = await getBase64(file);
+        data.supportFile = base64File1;
+        // data.supportFileName = file.name;
+        data.supportFileName = `supportFile.${file.name.split('.').pop()}`;
+      } catch (err) {
+        alert(err);
+      }
+    }
+
+ const Pi_Documentation = document.getElementById('Pi_Documentation');
+    const Documentation = Pi_Documentation.files[0];
+
+    if (Documentation) {
+      try {
+        const base64File1 = await getBase64(Documentation);
+        data.Pifilee = base64File1;
+        // data.supportFileName = file.name;
+        data.PiFileName = `Pifilee.${Documentation.name.split('.').pop()}`;
+      } catch (err) {
+        alert(err);
+      }
+    }
+
+    const EventfileInput = document.getElementById('eventFlyer');
+    const eventFlyer = EventfileInput.files[0];
+
+    if (eventFlyer) {
+      try {
+        const base64File1 = await getBase64(eventFlyer);
+        data.eventFlyerFile = base64File1;
+       // data.eventFlyerFileName = eventFlyer.name;
+       data.eventFlyerFileName = `eventFlyer.${eventFlyer.name.split('.').pop()}`;
+      } catch (err) {
+        alert(err);
+      }
+    }
+
+    const nonOfficialFileAttachment = document.getElementById('nonOfficialFileAttachment');
+    const nonOfficialFile = nonOfficialFileAttachment.files[0];
+
+
+    if (nonOfficialFile) {
+      try {
+        const base64File1 = await getBase64(nonOfficialFile);
+        data.nonOfficialFile = base64File1;
+        // data.nonOfficialFileName = nonOfficialFile.name;
+        data.nonOfficialFileName = `Employeetype.${nonOfficialFile.name.split('.').pop()}`;
+      } catch (err) {
+        alert(err);
+      }
+    }
+
+    const officialFileAttachment = document.getElementById('officialFileAttachment');
+    const officialFile = officialFileAttachment.files[0];
+
+    if (officialFile) {
+      try {
+        const base64File1 = await getBase64(officialFile);
+        data.officialFile = base64File1;
+        // data.officialFileName = officialFile.name;
+        data.officialFileName = `Employeetype.${officialFile.name.split('.').pop()}`;
+      } catch (err) {
+        alert(err);
+      }
+    }
+
+  // Check if nonOfficial or official file is uploaded and combine into fileAttachment
+  const nonOfficialFileAttachment1 = document.getElementById('nonOfficialFileAttachment');
+  const officialFileAttachment2 = document.getElementById('officialFileAttachment');
+  const fileAttachment = nonOfficialFileAttachment1.files[0] || officialFileAttachment2.files[0];
+
+
+  if (fileAttachment) {
+        try {
+            const base64File1 = await getBase64(fileAttachment);
+            data.fileAttachmentContent = base64File1;
+            // data.fileAttachmentName = `${fileAttachment.name}`;
+            data.fileAttachmentName = `Employeetype.${fileAttachment.name.split('.').pop()}`;
+        } catch (err) {
+            alert(err);
+        }
+    }
+
+
+
+      const URL12="https://prod-150.westus.logic.azure.com:443/workflows/c0d076b7c1ba4b3dbb44a91139770c7e/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=BcBbntDMSd9uhRRodiYeai_JPC224kISkPv7tzhBGtk"    
+    var recaptchaResponse = grecaptcha.getResponse();
+    if (recaptchaResponse.length === 0) {
+      alert("Please complete the reCAPTCHA.");
+
+      hideLoader();
+      submitButton.disabled = false;
+
+    } else {
+      const jsonData = {
+      NameOfTraveler: NameOfTraveler,
+      email: email,
+      positionTitle: positionTitle,
+      departureDate: departureDate,
+      returnDate: returnDate,
+      projectedCost: projectedCost,
+
+      eventWebsite: eventWebsite,
+      
+      NameOfPrincipalInvestigator: NameOfPrincipalInvestigator,
+      Fundnumber: Fundnumber,
+      Date: getCurrentDate(),
+      TravelPurpose: purpose,
+      EmployeeType: radioValue,
+      Federal: radioValue1,
+      FileName: data?.supportFileName,
+      FileContent: data?.supportFile, // Remove the base64 prefix
+
+      PIapprovalDoc: data?.PiFileName,
+      PIapprovalDocFileContent: data?.Pifilee,
+
+      eventFlyerFileName: data?.eventFlyerFileName,
+      eventFlyerFileContent: data?.eventFlyerFile, // Remove the base64 prefix
+      nonOfficialFileContent: data?.nonOfficialFile,
+      nonOfficialFileName: data?.nonOfficialFileName,
+      officialFileContent: data?.officialFile,
+      officialFileName: data?.officialFileName,
+      
+      
+      EmployeeTypeFileName: data?.fileAttachmentName,
+
+
+
+      Timestamp: getDateTimeString(),
+      recaptchaResponse:recaptchaResponse
+    };
+    fetch(URL12, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(jsonData)
+    }).then((response) => {
+      return response.text();
+    }).then((data) => {
+      showModal()
+      form.reset(); // Reset  submission
+      grecaptcha.reset();
+      hideLoader();
+      submitButton.disabled = false; // Re-enable the submit button after success
+      console.log(data);
+
+      
+    }).catch((error) => {
+      grecaptcha.reset();
+      console.error('Error:', error);
+       
+      hideLoader();
+      submitButton.disabled = false; 
+       
+    });
+  }
+
+  });
+</script>
