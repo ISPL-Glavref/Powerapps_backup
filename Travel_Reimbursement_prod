@@ -1,0 +1,1155 @@
+<style>
+  /* CSS to ensure proper formatting */
+
+  /* Remove bold from labels */
+  label {
+    font-weight: normal;
+    display: inline-block;
+    /* margin-left: -6px; */
+    vertical-align: top;
+  }
+
+  /* Add spacing between radio buttons and labels */
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+
+  /* Ensure long label text is formatted neatly */
+  label[for="VAemployeeNonOfficialDuty"],
+  label[for="VAemployeeOfficialDuty"] {
+    display: inline-block;
+    max-width: 600px;
+    margin-bottom: 10px;
+  }
+
+  /* Additional general form styling for better alignment */
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    /* Spacing between radio button groups */
+  }
+
+  .radio-group input[type="radio"] {
+    margin-right: 10px;
+    margin-left: 10px;
+    /* Spacing between radio button and label */
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  label.required::after {
+    content: " *";
+    /* Adds the asterisk */
+    color: rgb(204, 99, 99);
+    /* Makes the asterisk red */
+    font-weight: bold;
+    /* Optionally make it bold */
+  }
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+    justify-content: center;
+    /* Center modal content */
+    align-items: center;
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    /* For close button positioning */
+  }
+
+  /* Success Message (inside Modal) */
+  .success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e6f9e8;
+    color: #2c662d;
+    border: 1px solid #9fd6a3;
+    border-radius: 8px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+  }
+
+  /* Success Icon */
+  .success-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #4caf50;
+  }
+
+  /* Success Text */
+  .success-text {
+    font-weight: 600;
+  }
+
+  /* Close Button (X) */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: #aaa;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .close-btn:hover {
+    color: #555;
+  }
+
+  /* Overlay for background */
+  .custom-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  /* Alert box */
+  .custom-alert-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-width: 100%;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Alert message text */
+  .custom-alert-box h2 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .custom-alert-box p {
+    color: #555;
+    margin: 10px 0;
+  }
+
+  .custom-alert-box button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .custom-alert-box button:hover {
+    background-color: #0056b3;
+  }
+
+  label#lebelto {
+    margin-top: 0px;}
+
+  .form-row {
+            display: flex;
+            gap: 20px; /* Adjust space between fields */
+  }
+        
+  .form-group {
+            flex: 1; /* Allow fields to grow equally */
+  }
+        
+  .form-group label {
+            display: block;
+   }
+        
+ .form-control {
+            width: 100%;
+  }
+
+  table {
+            width: 100%;
+            border-collapse: collapse;
+  }
+        th, td {
+            border: 1px solid black;
+            padding: 4px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+
+#loader {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid #0896e7;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #totalSum {
+      transition: border-color 0.3s ease;
+   }
+
+   .file-upload-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-file-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 6px 12px;
+  background-color: #fff;
+  cursor: pointer;
+  height: 45px;
+}
+
+#fileInputText {
+  flex: 1;
+  color: #495057;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#addFileButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+#addFileButton:hover {
+  background-color: #0056b3;
+}
+
+.file-list {
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  max-height: 120px; /* Show only 3 files at a time */
+  overflow-y: auto; /* Add scroll for more than 3 files */
+  display: none; /* Initially hidden */
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.file-item:last-child {
+  border-bottom: none;
+}
+
+.delete-icon {
+  color: #ff4d4d;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  color: #ff1a1a;
+}
+
+
+
+
+</style>
+
+
+  <script src="https://www.google.com/recaptcha/api.js" async="" defer=""></script>
+
+  <div id="loader"></div>
+<div class="row sectionBlockLayout text-start" style="display: flex; flex-wrap: wrap; margin: 0px; min-height: auto; padding: 8px;">
+  <div class="container" style="padding: 0px; display: flex; flex-wrap: wrap; background-color: #F5F5F5; border-radius: 10px; width: 100%; max-width: 800px; margin: 0 auto;">
+    <div class="col-lg-12 columnBlockLayout" style="word-break: break-word; flex-grow: 1; display: flex; flex-direction: column; min-width: 300px;">
+      <h1 style="font-size: 30px; text-align: center;">Travel Reimbursement Request</h1>
+      <form novalidate="" class="needs-validation">
+
+
+        <div class="form-group">
+          <label for="travelerName" class="required">PO#</label>
+          <input type="text" id="PO" name="travelerName" required="" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="approvingOfficial" class="required">Name of traveler</label>
+          <input type="text" id="Nameoftraveler" name="approvingOfficial" class="form-control" required="">
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="required">Email</label>
+          <input type="text" id="email" name="email" required="" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="projectedCost" class="required">Glaveref Fund#</label>
+          <input type="text" id="GlaverefFund" name="GlaverefFund" required="" class="form-control">
+        </div>
+
+       
+        <div class="form-group">
+          <label for="Fundnumber" class="required">In Attendance at</label>
+          <input type="text" id="InAttendanceAt" name="InAttendanceAt" required="" class="form-control">
+        </div>
+
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="departureDate" class="required">From</label>
+            <input type="date" id="departureDate" name="departureDate" required="" class="form-control">
+          </div>
+        
+          <div class="form-group">
+            <label for="returnDate" class="required">To</label>
+            <input type="date" id="returnDate" name="returnDate" required="" class="form-control">
+          </div>
+        </div>
+        
+        
+        <p style="font-size: 16px;">Attached are original receipts and all other approved documents required to process this request for
+           reimbursement as well as the Memorandum for Request of Approved Absence/Travel and Clinical Coverage. Pre-Approval information
+            attached. <strong>If travel was international, please convert to the local currency for correct USD funds requested.</strong></p>
+
+<table style="width: 100%;">
+  <tbody><tr>
+      <th style="width: 27%;">Expense</th>
+      <th style="width: 17%;">Pre-Approval Received</th>
+      <th style="width: 28%;">Reimbursement Requested</th>
+  </tr>
+  <tr>
+      <td>Meals</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="glavref" name="employeeStatus" value="Meals" onclick="toggleInputAndFile('glavref-section')">
+      </td>
+      <td>
+          <div id="glavref-section" style="display: none;">
+              <input type="number" id="glavrefInput" name="glavrefInput" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Hotel Accommodations</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployeeNonOfficialDuty" name="employeeStatus1" value="Hotel Accommodations" onclick="toggleInputAndFile('nonOfficial-section')">
+      </td>
+      <td>
+          <div id="nonOfficial-section" style="display: none;">
+              <input type="number" id="nonOfficialInput" name="nonOfficialInput" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Ground Transportation<br><p class="ground" style="font-size: 11px;">(Pre-Approval Required, Basic Car Only)</p></td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section')">
+      </td>
+      <td>
+          <div id="official-section" style="display: none;">
+              <input type="number" id="officialInput" name="officialInput" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Airfare</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee1" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section1')">
+      </td>
+      <td>
+          <div id="official-section1" style="display: none;">
+              <input type="number" id="officialInput1" name="officialInput1" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Mileage<br><p class="Mileage" style="font-size: 10px;">(Local Use of Personal Car for Pre-Approved Conference or Event Only)</p></td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee2" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section2')">
+      </td>
+      <td>
+          <div id="official-section2" style="display: none;">
+              <input type="number" id="officialInput2" name="officialInput2" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Parking</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee3" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section3')">
+      </td>
+      <td>
+          <div id="official-section3" style="display: none;">
+              <input type="number" id="officialInput3" name="officialInput3" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Registration Fees</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee4" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section4')">
+      </td>
+      <td>
+          <div id="official-section4" style="display: none;">
+              <input type="number" id="officialInput4" name="officialInput4" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Poster/Exhibit cost</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee5" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section5')">
+      </td>
+      <td>
+          <div id="official-section5" style="display: none;">
+              <input type="number" id="officialInput5" name="officialInput5" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Telephone</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee6" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section6')">
+      </td>
+      <td>
+          <div id="official-section6" style="display: none;">
+              <input type="number" id="officialInput6" name="officialInput6" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+  <tr>
+      <td>Other</td>
+      <td style="text-align: center;">
+          <input class="form-check-input" type="checkbox" id="VAemployee7" name="employeeStatus" value="Official Duty" onclick="toggleInputAndFile('official-section7')">
+      </td>
+      <td>
+          <div id="official-section7" style="display: none;">
+              <input type="number" id="officialInput7" name="officialInput7" class="form-control" placeholder="0" step="0.01" oninput="calculateSum()">
+          </div>
+      </td>
+  </tr>
+
+  <tr>
+    <td>Total Reimbursement Request</td>
+    <td style="text-align: center;"></td>
+    <td>
+        <input type="text" id="totalSum" class="form-control" readonly="">
+    </td>
+</tr>
+</tbody></table><br>
+
+
+
+<div class="form-group">
+  <label for="projectedcost">Projected cost</label>
+  <input type="number" id="projectedcost" name="projectedcost" class="form-control" readonly="">
+</div>
+
+<div class="form-group">
+  <label for="fileUpload" class="required">Upload Docs</label>
+  <div class="file-upload-wrapper">
+    <input type="file" id="fileUpload" required="" class="form-control" multiple style="display: none;">
+    <div class="custom-file-input">
+      <span id="fileInputText">No file chosen</span>
+      <button type="button" id="addFileButton" class="btn btn-secondary">Add File</button>
+    </div>
+  </div>
+  <div id="fileList" class="file-list" style="display: none;"></div> <!-- Initially hidden -->
+  <div class="invalid-feedback"></div>
+</div>
+
+
+<div class="form-group">
+  <label class="required">Payment Instructions</label>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" id="MailDirect" name="PaymentInstructions" value="Mail Direct" onclick="toggleFields('MailDirect')" required="">
+    <label class="form-check-label" for="MailDirect">
+      Mail Direct
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" id="HoldforPickup" name="PaymentInstructions" value="Hold for Pickup" onclick="toggleFields('HoldforPickup')" required="">
+    <label class="form-check-label" for="HoldforPickup">
+      Hold for Pickup By
+    </label>
+  </div>
+
+  
+  <div id="commonFields" style="display: none; margin-top: 10px;">
+    <label class="required" for="NameofPI">Name of PI</label>
+    <input type="text" id="NameofPI" name="NameofPI" class="form-control" placeholder="" required="">
+
+    <label class="required" for="PhoneNumber">Phone</label>
+    <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" required="">
+
+    <label class="required" for="Address" id="addressLabel">Address</label>
+    <input type="text" id="Address" name="Address" class="form-control">
+
+    <label class="required" for="PickedUpBy" id="pickedUpByLabel" style="display: none;">Picked Up By</label>
+    <input type="text" id="PickedUpBy" name="PickedUpBy" class="form-control" style="display: none;">
+
+    <label for="submissionDate">Submission Date</label>
+    <input type="date" id="submissionDate" name="submissionDate" class="form-control" readonly="">
+
+  </div>
+</div>
+
+
+        <div class="g-recaptcha" data-sitekey="6LdIsG8qAAAAAI8gWJCorj82_K25cI2_CbX2RWHF"></div>
+        <div class="col-auto"><button type="submit" id="submitdata" class="btn btn-primary" disabled="disabled">Submit</button></div>
+      </form>
+
+    </div>
+  </div>
+  <div id="success-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="hideModal()">×</span>
+      <div class="success-message">
+        <span class="success-icon">✔</span>
+        <span class="success-text">Your submission was successful!</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const fileInput = document.getElementById("fileUpload");
+  const addFileButton = document.getElementById("addFileButton");
+  const fileInputText = document.getElementById("fileInputText");
+  const fileList = document.getElementById("fileList");
+  const maxFileSize = 5 * 1024 * 1024; // 5MB per file
+  const maxTotalSize = 100 * 1024 * 1024; // 100MB total
+  let filesArray = []; // Array to store uploaded files
+
+  // Trigger file input when "Add File" button is clicked
+  addFileButton.addEventListener("click", function () {
+    fileInput.click(); // Open the file input dialog
+  });
+
+  // Update the file input text when files are selected
+  fileInput.addEventListener("change", function () {
+    let totalSize = 0;
+    let validFiles = [];
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+      let file = fileInput.files[i];
+
+      if (file.size > maxFileSize) {
+        alert(`"${file.name}" is larger than 5MB. Please select a smaller file.`);
+        continue; // Skip this file
+      }
+
+      totalSize += file.size;
+      validFiles.push(file);
+    }
+
+    if (totalSize > maxTotalSize) {
+      alert("Total file size should not exceed 100MB. Please remove some files.");
+      fileInput.value = ""; // Clear the input field
+    } else {
+      // Add new files to the existing array
+      filesArray = filesArray.concat(Array.from(validFiles));
+      updateFileList();
+    }
+
+    // Update the file input text
+    updateFileCount();
+  });
+
+  function updateFileList() {
+    fileList.innerHTML = ""; // Clear the file list
+
+    if (filesArray.length > 0) {
+      fileList.style.display = "block"; // Show the container if files are uploaded
+    } else {
+      fileList.style.display = "none"; // Hide the container if no files are uploaded
+    }
+
+    filesArray.forEach((file, index) => {
+      const fileItem = document.createElement("div");
+      fileItem.className = "file-item";
+      fileItem.innerHTML = `
+        <span>${file.name}</span>
+        <span class="delete-icon" data-index="${index}">×</span>
+      `;
+      fileList.appendChild(fileItem);
+    });
+
+    // Add event listeners to cross icons
+    const deleteIcons = document.querySelectorAll(".delete-icon");
+    deleteIcons.forEach(icon => {
+      icon.addEventListener("click", function () {
+        const index = this.getAttribute("data-index");
+        filesArray.splice(index, 1); // Remove the file from the array
+        updateFileList(); // Update the displayed file list
+        updateFileCount(); // Update the file count
+      });
+    });
+
+    // Update the file input with the remaining files
+    let dataTransfer = new DataTransfer();
+    filesArray.forEach(file => dataTransfer.items.add(file));
+    fileInput.files = dataTransfer.files;
+
+    // Add scroll if more than 3 files are uploaded
+    if (filesArray.length > 3) {
+      fileList.style.overflowY = "scroll";
+      fileList.style.maxHeight = "120px"; // Adjust height to show 3 files
+    } else {
+      fileList.style.overflowY = "hidden";
+      fileList.style.maxHeight = "none";
+    }
+  }
+
+  // Function to update the file count text
+  function updateFileCount() {
+    if (filesArray.length > 0) {
+      fileInputText.textContent = `${filesArray.length} file(s) chosen`;
+    } else {
+      fileInputText.textContent = "No file chosen";
+    }
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    
+    function getParameterByName(name) {
+        let url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+
+    let poNumber = getParameterByName("PO");
+    let poField = document.getElementById("PO");
+
+    if (poNumber && poField) {
+        poField.value = poNumber;
+ 
+        fetchRelatedData();
+    }
+
+    poField.addEventListener("blur", fetchRelatedData);
+});
+
+
+const loader = document.getElementById('loader');
+
+function showLoader() {
+  loader.style.display = 'block';
+}
+
+function hideLoader() {
+  loader.style.display = 'none';
+}
+
+
+
+let fundrequestDetails = {}
+
+let submitButton = document.getElementById('submitdata');
+
+submitButton.disabled = true;
+
+document.getElementById('submissionDate').valueAsDate = new Date();
+
+document.addEventListener('DOMContentLoaded', function () {
+
+      // Get input field and add event listener for fetching related data
+    document.getElementById("PO").addEventListener("blur", fetchRelatedData);
+    
+    
+});
+
+
+function fetchRelatedData() {
+    const inputField = document.getElementById("PO").value;
+    if (inputField?.length) {
+        fetch("https://prod-68.westus.logic.azure.com:443/workflows/8fd0fb6664a64ffba85fe7b101d57912/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1JAob4tb3jStfylmPEda1jTosQmWqjZzgK6yTHWTk4U", { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ "PO Number": inputField })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            if (data?.result?.length) {
+                let object = data.result[0];
+                fundrequestDetails = object;
+
+                // Populate form fields
+                document.getElementById("Nameoftraveler").value = object?.TravelerName || '';
+                document.getElementById("GlaverefFund").value = object?.Fund || '';
+                document.getElementById("departureDate").value = object?.DepartureDate || '';
+                document.getElementById("returnDate").value = object?.ReturnDate || '';
+                document.getElementById("projectedcost").value = object?.ProjectedCost || '';
+                document.getElementById("InAttendanceAt").value = object?.PurposeOfTravel || '';
+                document.getElementById("email").value = object?.Email || '';
+                let submitButton = document.getElementById("submitdata")
+                console.log(submitButton,'submitButton')
+                if(!data.duplicate){
+                  submitButton.disabled = false;
+
+                }
+                // Enable submit button even if the form was previously submitted
+
+            } else {
+                // If no data is found, show alert and clear fields
+                submitButton.disabled = true;
+                alert('No Details Available with this PO');
+                document.getElementById("PO").value = '';  
+                document.getElementById("Nameoftraveler").value = '';
+                document.getElementById("GlaverefFund").value = '';
+                document.getElementById("departureDate").value = '';
+                document.getElementById("returnDate").value = '';
+                document.getElementById("projectedcost").value = '';
+                document.getElementById("InAttendanceAt").value = '';
+                document.getElementById("email").value = '';
+            }
+        })
+        .catch(error => {
+            submitButton.disabled = true;
+            console.error('Error:', error);
+        });
+    }
+}
+
+function updateBackgroundColor() {
+  const totalReimbursementRequest = parseFloat(document.getElementById('totalSum').value) || 0;
+  const projectedCost = parseFloat(document.getElementById('projectedcost').value) || 0;
+
+  const totalSumField = document.getElementById('totalSum');
+
+  // Check if the reimbursement exceeds the projected cost
+  if (totalReimbursementRequest > projectedCost) {
+    totalSumField.style.borderColor = 'yellow'; // Change border to green
+    totalSumField.style.borderWidth = '2px';   // Make border thicker for emphasis
+  } else {
+    totalSumField.style.borderColor = ''; 
+    totalSumField.style.borderWidth = '';   
+  }
+}
+
+function calculateSum() {
+    // Check if the checkboxes are checked and get the corresponding input values
+    const glavrefChecked = document.getElementById('glavref').checked;
+    const glavrefValue = glavrefChecked ? parseFloat(document.getElementById('glavrefInput').value) || 0 : 0;
+
+    const nonOfficialChecked = document.getElementById('VAemployeeNonOfficialDuty').checked;
+    const nonOfficialValue = nonOfficialChecked ? parseFloat(document.getElementById('nonOfficialInput').value) || 0 : 0;
+
+    const officialChecked = document.getElementById('VAemployee').checked;
+    const officialValue = officialChecked ? parseFloat(document.getElementById('officialInput').value) || 0 : 0;
+
+    const officialChecked1 = document.getElementById('VAemployee1').checked;
+    const officialValue1 = officialChecked1 ? parseFloat(document.getElementById('officialInput1').value) || 0 : 0;
+
+    const officialChecked2 = document.getElementById('VAemployee2').checked;
+    const officialValue2 = officialChecked2 ? parseFloat(document.getElementById('officialInput2').value) || 0 : 0;
+
+    const officialChecked3 = document.getElementById('VAemployee3').checked;
+    const officialValue3 = officialChecked3 ? parseFloat(document.getElementById('officialInput3').value) || 0 : 0;
+
+    const officialChecked4 = document.getElementById('VAemployee4').checked;
+    const officialValue4 = officialChecked4 ? parseFloat(document.getElementById('officialInput4').value) || 0 : 0;
+
+    const officialChecked5 = document.getElementById('VAemployee5').checked;
+    const officialValue5 = officialChecked5 ? parseFloat(document.getElementById('officialInput5').value) || 0 : 0;
+
+    const officialChecked6 = document.getElementById('VAemployee6').checked;
+    const officialValue6 = officialChecked6 ? parseFloat(document.getElementById('officialInput6').value) || 0 : 0;
+
+    const officialChecked7 = document.getElementById('VAemployee7').checked;
+    const officialValue7 = officialChecked7 ? parseFloat(document.getElementById('officialInput7').value) || 0 : 0;
+
+    // Calculate the total sum
+    const total = glavrefValue + nonOfficialValue + officialValue + officialValue1 + officialValue2 + officialValue3 + officialValue4 + officialValue5 + officialValue6 + officialValue7;
+
+    // Display the total sum in the totalSum input field
+    document.getElementById('totalSum').value = total.toFixed(2);
+
+    updateBackgroundColor();
+  }
+  
+  
+    // this code is for checkboxes
+  function toggleInputAndFile(sectionId) {
+    var section = document.getElementById(sectionId);
+    section.style.display = section.style.display === "none" ? "block" : "none";
+
+    // Recalculate the sum whenever a checkbox is toggled
+    calculateSum();
+  }
+
+  
+  function toggleFields(option) {
+  const commonFields = document.getElementById("commonFields");
+  const addressLabel = document.getElementById("addressLabel");
+  const pickedUpByLabel = document.getElementById("pickedUpByLabel");
+  const pickedUpByInput = document.getElementById("PickedUpBy");
+
+  // Show common fields
+  commonFields.style.display = "block";
+
+  if (option === "MailDirect") {
+    // For "Mail Direct", show Address field, hide Picked Up By
+    addressLabel.style.display = "block";
+    document.getElementById("Address").style.display = "block";
+    pickedUpByLabel.style.display = "none";
+    pickedUpByInput.style.display = "none";
+  } else if (option === "HoldforPickup") {
+    // For "Hold for Pickup", show Picked Up By field, hide Address
+    addressLabel.style.display = "none";
+    document.getElementById("Address").style.display = "none";
+    pickedUpByLabel.style.display = "block";
+    pickedUpByInput.style.display = "block";
+  }
+}
+ 
+  function showModal() {
+    const modal = document.getElementById('success-modal');
+    modal.style.display = 'flex'; // Show modal with flex layout
+  }
+
+  function hideModal() {
+    const modal = document.getElementById('success-modal');
+    modal.style.display = 'none'; // Hide modal
+  }
+
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]); // Extract Base64 content
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  document.getElementById('submitdata').addEventListener('click', async function (event) {
+    event.preventDefault();
+
+    // Check reCAPTCHA before proceeding with submission
+    var recaptchaResponse = grecaptcha.getResponse();
+    if (recaptchaResponse.length === 0) {
+        alert("Please complete the reCAPTCHA.");
+        return; // Exit early if reCAPTCHA is not completed
+    }
+
+    showLoader(); // Show loader on form submission
+    let fields = this;
+   
+    let form = event.target.closest('form');
+
+
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+      form.classList.add('was-validated');
+      hideLoader(); 
+      return;
+    }
+
+    // Custom validation for checkboxes and their corresponding fields
+  let checkboxInputs = [
+      { checkbox: 'glavref', input: 'glavrefInput' },
+      { checkbox: 'VAemployeeNonOfficialDuty', input: 'nonOfficialInput' },
+      { checkbox: 'VAemployee', input: 'officialInput' },
+      { checkbox: 'VAemployee1', input: 'officialInput1' },
+      { checkbox: 'VAemployee2', input: 'officialInput2' },
+      { checkbox: 'VAemployee3', input: 'officialInput3' },
+      { checkbox: 'VAemployee4', input: 'officialInput4' },
+      { checkbox: 'VAemployee5', input: 'officialInput5' },
+      { checkbox: 'VAemployee6', input: 'officialInput6' },
+      { checkbox: 'VAemployee7', input: 'officialInput7' }
+  ];
+
+  let isValid = false;
+  for (let item of checkboxInputs) {
+      let checkbox = document.getElementById(item.checkbox);
+      let input = document.getElementById(item.input);
+
+      if (checkbox.checked) {
+          isValid = true; // At least one checkbox is checked
+
+          // Check if the corresponding input field is filled
+          if (!input.value || parseFloat(input.value) === 0) {
+              alert(`Please enter the reimbursement amount for the field`);
+              hideLoader(); 
+              return;
+          }
+      }
+  }
+
+  // If no checkbox was checked, show an error
+  if (!isValid) {
+      alert('Please select at least one expense and fill out its corresponding reimbursement field.');
+      hideLoader(); 
+      return;
+  }
+
+
+    // Custom validation logic for radio button fields
+    const paymentInstructions = document.querySelector('input[name="PaymentInstructions"]:checked').value;
+
+    // If "Mail Direct" is selected, check if the Address field is filled
+    if (paymentInstructions === 'Mail Direct') {
+        const address = document.getElementById('Address').value;
+        if (!address) {
+            alert('Please enter the Address.');
+            return;
+        }
+    }
+
+    // If "Hold for Pickup" is selected, check if the Picked Up By field is filled
+    if (paymentInstructions === 'Hold for Pickup') {
+        const pickedUpBy = document.getElementById('PickedUpBy').value;
+        if (!pickedUpBy) {
+            alert('Please enter the name of the person who will pick it up.');
+            return;
+        }
+    }
+
+    // Get the values of Total Reimbursement Request and Projected Cost
+    const totalReimbursementRequest = parseFloat(document.getElementById("totalSum").value) || 0;
+    const projectedCost = parseFloat(document.getElementById("projectedcost").value) || 0;
+
+  
+if (totalReimbursementRequest > projectedCost) {
+    const userResponse = confirm("Total Reimbursement Request exceeds the projected cost. Please double-check the details before proceeding.");
+    
+    if (!userResponse) {
+        // User clicked "Cancel"
+        hideLoader(); // Hide loader if input validation fails
+        return; // Prevent form submission
+    }
+  
+}
+
+    // Collecting form data
+    const PO = document.getElementById("PO").value;
+    const Total_Reimbursement_Request	 = document.getElementById("totalSum").value;
+    const projectedcost = document.getElementById("projectedcost").value;
+    const departureDate = document.getElementById("departureDate").value;
+    const returnDate = document.getElementById("returnDate").value;
+    const GlaverefFund = document.getElementById("GlaverefFund").value;
+    const email = document.getElementById("email").value;
+    
+    const InAttendanceAt = document.getElementById("InAttendanceAt").value;
+    const Nameoftraveler = document.getElementById("Nameoftraveler").value;
+
+    const PaymentInstructions = document.querySelector('input[name="PaymentInstructions"]:checked');
+    let radioValuePaymentInstructions = PaymentInstructions ? PaymentInstructions.value : "No option selected";
+
+    const HoldforPickup_Nameofpi = document.getElementById("NameofPI")?.value || "";
+    const HoldforPickup_PhoneNumber2 = document.getElementById("PhoneNumber")?.value || "";
+    const HoldforPickup_PickedUpBy = document.getElementById("PickedUpBy")?.value || "";
+    const HoldforPickup_departureDate2 = document.getElementById("submissionDate")?.value || "";
+    const MailAddress= document.getElementById("Address")?.value || "";
+    
+
+    let data = {};
+
+    
+ // Process file uploads if any
+  const fileInput = document.getElementById('fileUpload');
+  const files = fileInput.files;
+
+  if (files.length > 0) {
+    const filePromises = Array.from(files).map(async (file) => {
+      try {
+        const base64File = await getBase64(file);
+        return {
+          fileName: file.name,
+          fileContent: base64File
+        };
+      } catch (err) {
+        alert(err);
+        return null;
+      }
+    });
+
+    const fileData = await Promise.all(filePromises);
+    data.files = fileData.filter(file => file !== null);
+  }
+
+
+
+     // Collect expense data and reimbursement amounts
+  const expenses = {
+    Meals: document.getElementById("glavrefInput")?.value || "",
+    "Hotel Accommodations": document.getElementById("nonOfficialInput")?.value || "",
+    "Ground Transportation": document.getElementById("officialInput")?.value || "",
+    Airfare: document.getElementById("officialInput1")?.value || "",
+    Mileage: document.getElementById("officialInput2")?.value || "",
+    Parking: document.getElementById("officialInput3")?.value || "",
+    "Registration Fees": document.getElementById("officialInput4")?.value || "",
+    "Poster/Exhibit cost": document.getElementById("officialInput5")?.value || "",
+    Telephone: document.getElementById("officialInput6")?.value || "",
+    Other: document.getElementById("officialInput7")?.value || ""
+  };
+
+    let selectedExpense = Object.keys(expenses).filter((key)=>{
+      return expenses[key];
+    })
+
+
+    var recaptchaResponse = grecaptcha.getResponse();
+    if (recaptchaResponse.length === 0) {
+      alert("Please complete the reCAPTCHA.");
+    } else if(fundrequestDetails.TravelerName) {
+
+
+    const jsonData = {
+      PO: PO,
+      email: email,
+      departureDate: departureDate,
+      returnDate: returnDate,
+      GlaverefFund: GlaverefFund,
+      Nameoftraveler: Nameoftraveler,
+      InAttendanceAt: InAttendanceAt,
+      projectedcost: projectedcost,
+      PaymentInstructions: radioValuePaymentInstructions,
+
+      Nameofpi: HoldforPickup_Nameofpi,
+      PhoneNumber: HoldforPickup_PhoneNumber2,
+      PickedUpBy: HoldforPickup_PickedUpBy,
+      Date: HoldforPickup_departureDate2,
+      Address: MailAddress,
+      
+
+      files: data.files, // Include the array of files
+      
+      Expenses: expenses,
+      selectedExpense:selectedExpense,
+      Total_Reimbursement_Request: Total_Reimbursement_Request,
+      recaptchaResponse:recaptchaResponse
+    
+    };
+
+    const URL12 = "https://prod-178.westus.logic.azure.com:443/workflows/e8d825088af342c099815943f6258a06/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=5PBoceG_Gbsp6XXK1L5B9aPchvTdlZAXajftPE8qG8w";
+
+    fetch(URL12, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(jsonData)
+    }).then((response) => {
+      return response.text();
+    }).then((data) => {
+      hideLoader(); // Hide loader on successful response
+      showModal();
+      form.reset(); // Reset form after submission
+      console.log(data);
+    }).catch((error) => {
+      hideLoader(); // Hide loader on error
+      console.error('Error:', error);
+    });
+
+  }else{
+    alert('No matching deatils for this PO# fund or request submited earlier');
+    hideLoader(); // Hide loader if validation fails
+  }
+
+  });
+</script>
